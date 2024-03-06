@@ -25,3 +25,33 @@ export async function createPost(title, content) {
         throw error;
     }
 }
+
+export async function getPostById(postId) {
+    try {
+        const [rows] = await conn.query('SELECT * FROM blog_posts WHERE id = ?', [postId]);
+        return rows[0];
+    } catch (error) {
+        console.error('Error executing getPostById:', error);
+        throw error;
+    }
+}
+
+export async function updatePost(postId, title, content) {
+    try {
+        const [result] = await conn.query('UPDATE blog_posts SET title = ?, content = ? WHERE id = ?', [title, content, postId]);
+        return result;
+    } catch (error) {
+        console.error('Error executing updatePost:', error);
+        throw error;
+    }
+}
+
+export async function deletePost(postId) {
+    try {
+        const [result] = await conn.query('DELETE FROM blog_posts WHERE id = ?', [postId]);
+        return result;
+    } catch (error) {
+        console.error('Error executing deletePost:', error);
+        throw error;
+    }
+}
