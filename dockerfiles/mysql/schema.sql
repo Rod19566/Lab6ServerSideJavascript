@@ -4,3 +4,4 @@ CREATE TABLE IF NOT EXISTS blog_posts (
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
