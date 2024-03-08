@@ -3,8 +3,10 @@ import {getAllPosts, createPost, updatePost, deletePost, getPostById} from './db
 
 const app = express();
 const port = 3000;
+var cors = require('cors');
 
 app.use(express.json()); 
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
