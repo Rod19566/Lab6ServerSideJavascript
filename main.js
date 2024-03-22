@@ -10,31 +10,31 @@ console.log(__dirname)
 
 const app = express();
 const port = 3000;
-//var cors = require('cors');
+// var cors = require('cors');
 
 app.use(express.json()); 
-//app.use(cors());
+// app.use(cors());
 
 app.use(express.static(join(__dirname, "public")));
 
-app.get("/", (request, response) => {
-    response.sendFile(join(__dirname, "public", "index.html"));
+app.get("/", async (request, response) => {
+   // response.sendFile(join(__dirname, "public", "index.html"));
+   try {
+    const rows = await getAllPosts()
+    response.json(rows);
+  } catch (error) {
+    response.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
-app.get('/posts/:postId', async (req, res) => {
-    const postId = req.params.postId;
+  app.get('/posts', async (req, res) => {
     try {
-        const post = await getPostById(postId);
-        if (!post) {
-            res.status(404).json({ error: 'Post not found' });
-        } else {
-            res.json(post);
-        }
+      const posts = await getAllPosts()
+      res.status(200).json(posts)
     } catch (error) {
-        console.error('Error getting post by ID:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ error: 'Internal Server Error' })
     }
-});
+  })
 
 
 app.post('/posts', async (req, res) => {

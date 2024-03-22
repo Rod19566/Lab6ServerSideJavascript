@@ -1,4 +1,0 @@
-Lab 6: Server Side Javascript
-Github: https://github.com/Rod19566/Lab6ServerSideJavascript/tree/main
-Servidor: https://github.com/Rod19566/Lab6ServerSideJavascript/tree/main
-https://19566.arpanetos.lol/

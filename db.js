@@ -1,4 +1,4 @@
-import conn from './conn.js';
+import conn from './conn.js'
 /*
 POST /posts
 GET /posts
