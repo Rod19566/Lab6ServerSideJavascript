@@ -1,27 +1,25 @@
 import express from 'express';
 import {getAllPosts, createPost, updatePost, deletePost, getPostById} from './db.js';
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+console.log(__filename)
+const __dirname = dirname(__filename);
+console.log(__dirname)
 
 const app = express();
 const port = 3000;
-var cors = require('cors');
+//var cors = require('cors');
 
 app.use(express.json()); 
-app.use(cors());
+//app.use(cors());
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.use(express.static(join(__dirname, "public")));
+
+app.get("/", (request, response) => {
+    response.sendFile(join(__dirname, "public", "index.html"));
 });
-
-app.get('/posts', async (req, res) => {
-    try {
-        const posts = await getAllPosts();
-        res.json(posts);
-    } catch (error) {
-        console.error('Error getting all posts:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
 
 app.get('/posts/:postId', async (req, res) => {
     const postId = req.params.postId;
