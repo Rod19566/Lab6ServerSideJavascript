@@ -6,6 +6,17 @@ GET /posts/:postId
 PUT /posts/:postId
 DELETE /posts/:postId
 */
+
+export async function getPostById(postId) {
+    try {
+        const [rows] = await conn.query('SELECT * FROM blog_posts WHERE id = ?', [postId]);
+        return rows.length ? rows[0] : null
+    } catch (error) {
+        console.error('Error executing getPostById:', error);
+        throw error;
+    }
+}
+
 export async function getAllPosts() {
     try {
         const [rows] = await conn.query('SELECT * FROM blog_posts');
@@ -16,22 +27,14 @@ export async function getAllPosts() {
     }
 }
 
-export async function createPost(title, content) {
+export async function createPost(title, content, username) {
     try {
-        const [result] = await conn.query('INSERT INTO blog_posts (title, content) VALUES (?, ?)', [title, content]);
-        return result;
+        const [result] = await conn.query('INSERT INTO blog_posts (title, content, username) VALUES (?, ?)', [title, content, username]);
+        
+        const insertedRow = await getPostByID(result.insertId)
+        return insertedRow;
     } catch (error) {
         console.error('Error executing createPost:', error);
-        throw error;
-    }
-}
-
-export async function getPostById(postId) {
-    try {
-        const [rows] = await conn.query('SELECT * FROM blog_posts WHERE id = ?', [postId]);
-        return rows[0];
-    } catch (error) {
-        console.error('Error executing getPostById:', error);
         throw error;
     }
 }
