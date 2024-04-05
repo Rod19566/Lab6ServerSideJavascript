@@ -7,7 +7,7 @@ PUT /posts/:postId
 DELETE /posts/:postId
 */
 
-export async function getPostById(postId) {
+export async function getPostByID(postId) {
     try {
         const [rows] = await conn.query('SELECT * FROM blog_posts WHERE id = ?', [postId]);
         return rows.length ? rows[0] : null
@@ -29,8 +29,7 @@ export async function getAllPosts() {
 
 export async function createPost(title, content, username) {
     try {
-        const [result] = await conn.query('INSERT INTO blog_posts (title, content, username) VALUES (?, ?)', [title, content, username]);
-        
+        const [result] = await conn.query('INSERT INTO blog_posts (title, content, username) VALUES (?, ?, ?)', [title, content, username]);
         const insertedRow = await getPostByID(result.insertId)
         return insertedRow;
     } catch (error) {
@@ -57,4 +56,12 @@ export async function deletePost(postId) {
         console.error('Error executing deletePost:', error);
         throw error;
     }
+}
+
+export function submitPost() {
+    var username = document.getElementById("username").value;
+    var title = document.getElementById("title").value;
+    var content = document.getElementById("content").value;
+    document.getElementById("posted").value = "Posted!";
+    createPost(title, content, username);
 }

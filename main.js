@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors'
-import {getAllPosts, createPost, updatePost, deletePost, getPostById} from './db.js';
+import {getAllPosts, createPost, updatePost, deletePost, getPostByID} from './db.js';
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
@@ -53,7 +53,8 @@ app.get("/", async (request, response) => {
 
 app.post('/posts', async (request, response) => {
     try {
-      const {title, content, username} = request.body
+      console.log(request.body)
+      const [title, content, username] = [request.body.title, request.body.content, request.body.username]
       const result = await createPost(title,content,username)
       response.status(200).json(response)
     } catch (error) {

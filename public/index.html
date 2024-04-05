@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css" >
     <title>Dogs Blog</title>
-    <link rel="stylesheet" href="index.css">
-    <script src="db.js"></script>
+    <script src="../db.js"></script>
 </head>
 <body>
     <header>
@@ -20,22 +20,14 @@
         <h2>Welcome to Dogs Blog</h2>
         <p>This is a place where you can find interesting articles, stories, and information about dogs.</p>
         <div id="postForm">
+            <label id="posted"></label>
             <input type="text" id="title" placeholder="Post Title">
             <input type="text" id="content" placeholder="Post Content">
             <button onclick="submitPost()">Submit</button>
         </div>
     </main>
     <footer>
-        <p>&copy; 2024 Dogs Blog. All rights reserved.</p>
+        <p>2024 Dogs Blog. All rights reserved.</p>
     </footer>
-    <script>
-        function submitPost() {
-            var username = document.getElementById("username").value;
-            var title = document.getElementById("title").value;
-            var content = document.getElementById("content").value;
-            createPost(title, content, username);
-
-        }
-    </script>
 </body>
 </html>
